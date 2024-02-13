@@ -57,22 +57,25 @@ int Span::shortestSpan()
 	{
 		throw std::runtime_error("Small size");
 	}
-	
+
 	bool find = false;
-	int min = this->_v[0];
+	int min = this->_v->at(0);
 
 	for (size_t i = 0; i < this->_v->size(); i++)
 	{
-		if (this->_v[i] == this->_minInt && !find)
+		if (this->_v->at(i) == this->_minInt && !find)
 		{
 			find = true;
 			continue;
 		}
 
-
+		if (this->_v->at(i) < min)
+		{
+			min = this->_v->at(i);
+		}
 	}
 
-	return 0;
+	return this->_minInt - min;
 }
 
 int Span::longestSpan()
