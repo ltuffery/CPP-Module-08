@@ -1,20 +1,22 @@
 #include "Span.hpp"
 #include <cstddef>
 #include <stdexcept>
+#include <algorithm>
+#include <iostream>
 
-Span::Span()
+Span::Span() : _N(0)
 {
 	this->_v = new std::vector<int>(0);
 }
 
-Span::Span(const Span &copy)
+Span::Span(const Span &copy) : _N(copy._N)
 {
 	*this = copy;
 }
 
-Span::Span(unsigned int N)
+Span::Span(unsigned int N) : _N(N)
 {
-	this->_v = new std::vector<int>(N);
+	this->_v = new std::vector<int>(0);
 }
 
 Span::~Span()
@@ -34,56 +36,63 @@ Span &Span::operator=(const Span &copy)
 
 void Span::addNumber(int n)
 {
-	if (this->_v->size() == this->_v->max_size())
+	if (this->_v->size() == this->_N)
 	{
-		throw std::runtime_error("Contenaire is full");
-	}
-
-	if (n > this->_maxInt)
-	{
-		this->_maxInt = n;
-	}
-	else if (n < this->_minInt)
-	{
-		this->_minInt = n;
+		throw std::runtime_error("Contenaire full");
 	}
 
 	this->_v->push_back(n);
 }
 
+void Span::addNumbers(int a, int b)
+{
+	int i = 1;
+
+	if (a < b)
+	{
+		i = -1;
+	}
+	while (a != b)
+	{
+		addNumber(a);
+		a += i;
+	}
+}
+
 int Span::shortestSpan()
 {
+
 	if (this->_v->size() < 2)
 	{
-		throw std::runtime_error("Small size");
+		throw std::runtime_error("Size");
 	}
+	
+	std::sort(this->_v->begin(), this->_v->end());
 
-	bool find = false;
-	int min = this->_v->at(0);
+	int min = *(this->_v->begin() + 1) - *this->_v->begin();
 
-	for (size_t i = 0; i < this->_v->size(); i++)
+	for (std::vector<int>::iterator it = this->_v->begin() + 1; it != this->_v->end(); it++)
 	{
-		if (this->_v->at(i) == this->_minInt && !find)
+		if (it + 1 == this->_v->end())
 		{
-			find = true;
-			continue;
+			break;
 		}
-
-		if (this->_v->at(i) < min)
+		if (*(it + 1) - *it < min)
 		{
-			min = this->_v->at(i);
+			min = *(it + 1) - *it;
 		}
 	}
-
-	return this->_minInt - min;
+	return min;
 }
 
 int Span::longestSpan()
 {
-	if (this->_v->size() < 2)
+	size_t size = this->_v->size();
+
+	if (size < 2)
 	{
-		throw std::runtime_error("Small size");
+		throw std::runtime_error("Size");
 	}
-	
-	return this->_minInt - this->_maxInt;
+
+	return *std::max_element(this->_v->begin(), this->_v->end()) - *std::min_element(this->_v->begin(), this->_v->end());
 }

@@ -8,8 +8,7 @@ class Span
 
 	private:
 		std::vector<int> *_v;
-		int _maxInt;
-		int _minInt;
+		const unsigned int _N;
 
 	public:
 		Span();
