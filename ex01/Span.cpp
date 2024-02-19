@@ -48,7 +48,7 @@ void Span::addNumbers(int a, int b)
 {
 	int i = 1;
 
-	if (a < b)
+	if (a > b)
 	{
 		i = -1;
 	}
@@ -57,6 +57,7 @@ void Span::addNumbers(int a, int b)
 		addNumber(a);
 		a += i;
 	}
+	addNumber(a);
 }
 
 int Span::shortestSpan()

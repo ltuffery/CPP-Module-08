@@ -16,7 +16,7 @@ int main()
 
 		try {
 			sp.addNumber(8);
-		} catch(std::exception e) {
+		} catch(std::runtime_error &e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
