@@ -2,17 +2,20 @@
 # define EASYFIND_HPP
 
 #include <stdexcept>
+#include <algorithm>
+#include <iostream>
 
 template<typename T>
-int easyfind(T arr, int n)
+void easyfind(T arr, int n)
 {
-	for (size_t i = 0; i < arr.size(); i++)
+	if (std::find(arr.begin(), arr.end(), n) != arr.end())
 	{
-		if (arr[i] == n)
-			return i;
+		std::cout << "I found" << std::endl;
 	}
-
-	throw std::runtime_error("No occurance find");
+	else
+	{
+		throw std::runtime_error("No occurance find");
+	}
 }
 
 #endif

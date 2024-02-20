@@ -18,8 +18,7 @@ int main()
 	}
 
 	try {
-		std::cout << "index : " << easyfind(arr, 2) << std::endl;
-
+		easyfind(arr, 2);
 		easyfind(arr, 1);
 	} catch (std::exception e) {
 		std::cout << e.what() << std::endl;
