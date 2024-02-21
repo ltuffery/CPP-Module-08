@@ -50,5 +50,16 @@ int main()
 		}
 		std::stack<std::string> s(mstack);
 	}
+	{
+		MutantStack<float> mstack;
+		if (mstack.begin() == mstack.end())
+		{
+			std::cout << "Good" << std::endl;
+		}
+		else
+		{
+			std::cout << "Not Good" << std::endl;
+		}
+	}
 	return 0;
 }
