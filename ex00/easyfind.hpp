@@ -6,7 +6,7 @@
 #include <iostream>
 
 template<typename T>
-void easyfind(T arr, int n)
+void easyfind(T &arr, int n)
 {
 	if (std::find(arr.begin(), arr.end(), n) != arr.end())
 	{
